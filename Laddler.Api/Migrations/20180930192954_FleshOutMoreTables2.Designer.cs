@@ -4,14 +4,16 @@ using Laddler.Api.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Laddler.Api.Migrations
 {
     [DbContext(typeof(LaddlerDb))]
-    partial class LaddlerDbModelSnapshot : ModelSnapshot
+    [Migration("20180930192954_FleshOutMoreTables2")]
+    partial class FleshOutMoreTables2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -27,15 +29,11 @@ namespace Laddler.Api.Migrations
 
                     b.Property<string>("Description");
 
-                    b.Property<int>("DimensionGroupId");
-
                     b.Property<int>("LadderId");
 
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("DimensionGroupId");
 
                     b.HasIndex("LadderId");
 
@@ -52,7 +50,7 @@ namespace Laddler.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DimensionGroups");
+                    b.ToTable("DbDimensionGroup");
                 });
 
             modelBuilder.Entity("Laddler.Api.Database.DbDimensionMilestone", b =>
@@ -63,11 +61,15 @@ namespace Laddler.Api.Migrations
 
                     b.Property<string>("Description");
 
+                    b.Property<int>("DimensionGroupId");
+
                     b.Property<int>("DimensionId");
 
                     b.Property<int>("MilestoneId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("DimensionGroupId");
 
                     b.HasIndex("DimensionId");
 
@@ -195,11 +197,6 @@ namespace Laddler.Api.Migrations
 
             modelBuilder.Entity("Laddler.Api.Database.DbDimension", b =>
                 {
-                    b.HasOne("Laddler.Api.Database.DbDimensionGroup", "DimensionGroup")
-                        .WithMany()
-                        .HasForeignKey("DimensionGroupId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
                     b.HasOne("Laddler.Api.Database.DbLadder", "Ladder")
                         .WithMany()
                         .HasForeignKey("LadderId")
@@ -208,6 +205,11 @@ namespace Laddler.Api.Migrations
 
             modelBuilder.Entity("Laddler.Api.Database.DbDimensionMilestone", b =>
                 {
+                    b.HasOne("Laddler.Api.Database.DbDimensionGroup", "DimensionGroup")
+                        .WithMany()
+                        .HasForeignKey("DimensionGroupId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("Laddler.Api.Database.DbDimension", "Dimension")
                         .WithMany("DimensionMilestones")
                         .HasForeignKey("DimensionId")

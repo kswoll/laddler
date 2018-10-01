@@ -4,14 +4,16 @@ using Laddler.Api.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Laddler.Api.Migrations
 {
     [DbContext(typeof(LaddlerDb))]
-    partial class LaddlerDbModelSnapshot : ModelSnapshot
+    [Migration("20180930193100_FleshOutMoreTables3")]
+    partial class FleshOutMoreTables3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +54,7 @@ namespace Laddler.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("DimensionGroups");
+                    b.ToTable("DbDimensionGroup");
                 });
 
             modelBuilder.Entity("Laddler.Api.Database.DbDimensionMilestone", b =>

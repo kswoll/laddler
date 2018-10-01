@@ -1,8 +1,12 @@
-﻿namespace Laddler.Api.Database
+﻿using System.Collections.Generic;
+
+namespace Laddler.Api.Database
 {
     public class DbLadder
     {
         public int Id { get; set; }
-        public 
+        public string Name { get; set; }
+
+		public List<DbPersonLadder> PersonLadders { get; set; }
     }
 }
